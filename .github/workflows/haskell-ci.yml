@@ -185,7 +185,7 @@ jobs:
       - name: cache (tools)
         uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-${{ matrix.compiler }}-tools-690c3b3c
+          key: ${{ runner.os }}-${{ matrix.compiler }}-tools-16fe7d6d
           path: ~/.haskell-ci-tools
       - name: install cabal-plan
         run: |
@@ -198,8 +198,8 @@ jobs:
           cabal-plan --version
       - name: install doctest
         run: |
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then $CABAL --store-dir=$HOME/.haskell-ci-tools/store v2-install $ARG_COMPILER --ignore-project -j2 doctest --constraint='doctest ^>=0.20' ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest --version ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then $CABAL --store-dir=$HOME/.haskell-ci-tools/store v2-install $ARG_COMPILER --ignore-project -j2 doctest --constraint='doctest ^>=0.20' ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest --version ; fi
       - name: checkout
         uses: actions/checkout@v2
         with:
@@ -305,22 +305,22 @@ jobs:
           if [ $((! GHCJSARITH)) -ne 0 ] ; then $CABAL v2-test $ARG_COMPILER $ARG_TESTS $ARG_BENCH all --test-show-details=direct ; fi
       - name: doctest
         run: |
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  src ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics_core} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  -XBangPatterns -XDefaultSignatures -XDeriveFunctor -XFlexibleContexts -XFlexibleInstances -XFunctionalDependencies -XGADTs -XInstanceSigs -XLambdaCase -XMultiParamTypeClasses -XRankNTypes -XScopedTypeVariables -XTupleSections -XTypeApplications -XTypeFamilies -XTypeOperators src ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics_extra} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  -XBangPatterns -XDefaultSignatures -XDeriveFunctor -XFlexibleContexts -XFlexibleInstances -XFunctionalDependencies -XGADTs -XInstanceSigs -XLambdaCase -XMultiParamTypeClasses -XRankNTypes -XScopedTypeVariables -XTupleSections -XTypeApplications -XTypeFamilies -XTypeOperators src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_optics} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_optics_core} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 -XBangPatterns -XDefaultSignatures -XDeriveFunctor -XFlexibleContexts -XFlexibleInstances -XFunctionalDependencies -XGADTs -XInstanceSigs -XLambdaCase -XMultiParamTypeClasses -XRankNTypes -XScopedTypeVariables -XTupleSections -XTypeApplications -XTypeFamilies -XTypeOperators src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_optics_extra} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 -XBangPatterns -XDefaultSignatures -XDeriveFunctor -XFlexibleContexts -XFlexibleInstances -XFunctionalDependencies -XGADTs -XInstanceSigs -XLambdaCase -XMultiParamTypeClasses -XRankNTypes -XScopedTypeVariables -XTupleSections -XTypeApplications -XTypeFamilies -XTypeOperators src ; fi
           if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics_sop} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  src ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics_th} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  src ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_optics_vl} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  src ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then cd ${PKGDIR_indexed_profunctors} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  src ; fi
+          if [ $((! GHCJSARITH && HCNUMVER < 90200)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_optics_th} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_optics_vl} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then cd ${PKGDIR_indexed_profunctors} || false ; fi
+          if [ $((! GHCJSARITH)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
           if [ $((! GHCJSARITH && HCNUMVER < 90000)) -ne 0 ] ; then cd ${PKGDIR_template_haskell_optics} || false ; fi
-          if [ $((! GHCJSARITH && HCNUMVER < 90000)) -ne 0 ] ; then doctest  src ; fi
+          if [ $((! GHCJSARITH && HCNUMVER < 90000)) -ne 0 ] ; then doctest  -XHaskell2010 src ; fi
       - name: cabal check
         run: |
           cd ${PKGDIR_optics} || false
